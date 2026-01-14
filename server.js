@@ -13,7 +13,7 @@ const app = express();
 // Ganti pengaturan CORS lama dengan ini:
 app.use(cors({
     origin: '*', // Mengizinkan semua domain (Vercel, localhost, dll)
-    methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+    methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization']
   }));
 app.use(express.json());
