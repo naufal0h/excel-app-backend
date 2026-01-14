@@ -5,7 +5,7 @@ const xlsx = require('xlsx');
 const fs = require('fs');
 
 const app = express();
-app.use(cors());
+app.use(cors(origin: 'https://excel-app-frontend.vercel.app/' // Ganti dengan URL frontend Anda));
 app.use(express.json());
 
 const upload = multer({ dest: 'uploads/' });
