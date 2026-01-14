@@ -23,23 +23,25 @@ const upload = multer({ dest: 'uploads/' });
 // Database sederhana menggunakan file JSON
 const DB_FILE = 'database.json';
 
+// Pastikan nama di dalam .single('file') sama dengan di frontend
 app.post('/upload', upload.single('file'), (req, res) => {
-    const workbook = xlsx.readFile(req.file.path);
-    const data = {};
+    try {
+        // VALIDASI: Cek apakah file ada atau tidak
+        if (!req.file) {
+            return res.status(400).json({ message: "File tidak terdeteksi oleh server" });
+        }
 
-    workbook.SheetNames.forEach(sheetName => {
-        data[sheetName] = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
-    });
-
-    // Simpan ke "Database"
-    let currentDB = [];
-    if (fs.existsSync(DB_FILE)) {
-        currentDB = JSON.parse(fs.readFileSync(DB_FILE));
+        // Jika file ada, baru akses path-nya
+        const filePath = req.file.path;
+        const workbook = xlsx.readFile(filePath);
+        
+        // ... kode pengolahan excel Anda selanjutnya
+        
+        res.json({ message: "Berhasil diunggah" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
-    currentDB.push({ id: Date.now(), filename: req.file.originalname, content: data });
-    fs.writeFileSync(DB_FILE, JSON.stringify(currentDB));
-
-    res.json({ message: "Data berhasil disimpan!", data });
 });
 
 app.get('/data', (req, res) => {
