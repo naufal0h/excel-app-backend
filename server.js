@@ -10,21 +10,10 @@ if (!fs.existsSync('./uploads')) {
 
 const app = express();
 app.use(cors({
-    origin: function (origin, callback) {
-      // Mengizinkan permintaan tanpa origin (seperti mobile apps atau curl) 
-      // atau yang cocok dengan domain vercel Anda
-      const allowedOrigins = [
-        'https://excel-app-frontend.vercel.app',
-        'https://excel-app-frontend-one.vercel.app' // jaga-jaga jika ada domain lain
-      ];
-      
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    }
-  }));
+    origin: 'https://excel-app-frontend.vercel.app/', // Sementara gunakan '*' agar pasti jalan, nanti bisa diganti URL Vercel
+    methods: ['GET', 'POST']
+}));
+app.use(express.json());
 
 const upload = multer({ dest: 'uploads/' });
 
