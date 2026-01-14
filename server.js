@@ -3,9 +3,15 @@ const multer = require('multer');
 const cors = require('cors');
 const xlsx = require('xlsx');
 const fs = require('fs');
+if (!fs.existsSync('./uploads')) {
+    fs.mkdirSync('./uploads');
+}
 
 const app = express();
-app.use(cors(origin: 'https://excel-app-frontend.vercel.app/' // Ganti dengan URL frontend Anda));
+app.use(cors({
+    origin: 'https://excel-app-frontend.vercel.app/', // Sementara gunakan '*' agar pasti jalan, nanti bisa diganti URL Vercel
+    methods: ['GET', 'POST']
+}));
 app.use(express.json());
 
 const upload = multer({ dest: 'uploads/' });
