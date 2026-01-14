@@ -11,8 +11,7 @@ if (!fs.existsSync('./uploads')) {
 const app = express();
 app.use(cors({
     origin: 'https://excel-app-frontend.vercel.app', // Sementara gunakan '*' agar pasti jalan, nanti bisa diganti URL Vercel
-    methods: ['GET', 'POST'],
-    credentials: true
+    methods: ['GET', 'POST']
 
 }));
 app.use(express.json());
