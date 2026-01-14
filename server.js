@@ -3,17 +3,19 @@ const multer = require('multer');
 const cors = require('cors');
 const xlsx = require('xlsx');
 const PORT = process.env.PORT || 5000;
+
 const fs = require('fs');
 if (!fs.existsSync('./uploads')) {
     fs.mkdirSync('./uploads');
 }
 
 const app = express();
+// Ganti pengaturan CORS lama dengan ini:
 app.use(cors({
-    origin: 'https://excel-app-frontend.vercel.app', // Sementara gunakan '*' agar pasti jalan, nanti bisa diganti URL Vercel
-    methods: ['GET', 'POST']
-
-}));
+    origin: '*', // Mengizinkan semua domain (Vercel, localhost, dll)
+    methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
 app.use(express.json());
 
 const upload = multer({ dest: 'uploads/' });
