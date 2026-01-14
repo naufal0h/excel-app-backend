@@ -10,11 +10,13 @@ if (!fs.existsSync('./uploads')) {
 }
 
 const app = express();
-// Ganti pengaturan CORS lama dengan ini:
 app.use(cors({
-    origin: '*', // Mengizinkan semua domain (Vercel, localhost, dll)
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    origin: [
+      'https://excel-app-frontend.vercel.app', 
+      'https://excel-app-frontend.vercel.app/'
+    ],
+    methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+    credentials: true
   }));
 app.use(express.json());
 
