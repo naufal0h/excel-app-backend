@@ -10,9 +10,13 @@ if (!fs.existsSync('./uploads')) {
 
 const app = express();
 app.use(cors({
-    origin: 'https://excel-app-frontend.vercel.app/', // Sementara gunakan '*' agar pasti jalan, nanti bisa diganti URL Vercel
-    methods: ['GET', 'POST']
-}));
+    origin: [
+      'https://excel-app-frontend.vercel.app', 
+      'https://excel-app-frontend.vercel.app/'
+    ],
+    methods: ['GET', 'POST', 'DELETE'],
+    credentials: true
+  }));
 app.use(express.json());
 
 const upload = multer({ dest: 'uploads/' });
